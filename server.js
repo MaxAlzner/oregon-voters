@@ -11,7 +11,6 @@ var whitelist = [
   'jpg', 'jpeg', 'png', 'gif',
   'json', 'csv', 'doc', 'docx', 'pdf'
 ];
-console.log(new RegExp('/^.*\.(' + whitelist.join('|') + ')$/'));
 
 app
   .get('/', function (request, response) {
@@ -28,9 +27,9 @@ app
         response.end();
       });
   })
-  .get(new RegExp('/^.*\.(' + whitelist.join('|') + ')$/'), function (request, response) {
-    console.log('SEND', __dirname + '/client/' + request.originalUrl);
-    response.sendFile(__dirname + '/client/' + request.originalUrl, function (err) {
+  .get(new RegExp('^.*\.(' + whitelist.join('|') + ')$'), function (request, response) {
+    console.log('SEND', __dirname + '/client' + request.originalUrl);
+    response.sendFile(__dirname + '/client' + request.originalUrl, function (err) {
         if (err) {
             console.log('ERROR', err);
             response.status(err.statusCode);
