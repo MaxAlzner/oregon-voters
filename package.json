@@ -1,0 +1,13 @@
+{
+  "name": "oregon-voters",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server.js",
+  "repository": "",
+  "author": "Max Alzner <maxalzner@gmail.com>",
+  "dependencies": {
+    "async": "~0.2.8",
+    "express": "^4.15.3",
+    "socket.io": "~0.9.14"
+  }
+}
