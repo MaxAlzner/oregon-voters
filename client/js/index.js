@@ -7,15 +7,12 @@
     var height = 600;
     
     var projection = d3.geoAlbersUsa()
-        .translate([2160, 1250])
-    	.scale([6000]);
+        .translate([2490, 1380])
+    	.scale([7100]);
 				   
     var path = d3.geoPath()
         .projection(projection);
 	
-    var color = d3.scaleLinear()
-        .range(['rgb(213,222,217)','rgb(69,173,168)','rgb(84,36,55)','rgb(217,91,67)']);
-    
     var svg = d3.select('#chart-container')
         .append('svg')
         .attr('id', 'chart')
@@ -85,8 +82,8 @@
             	.append('path')
             	.attr('d', path)
             	.attr('class', 'county')
-            	.style('stroke', '#444')
-            	.style('stroke-width', '1')
+            	.style('stroke', 'none')
+            	.style('stroke-width', 0)
             	.style('fill', function(d) {
             	    var county = counties[d.properties.name.replace(' County, OR', '').toLowerCase()];
             	    if (county) {
@@ -95,6 +92,10 @@
             	    
             	    return 'rgb(213,222,217)';
         	    })
+        	    .attr('data-toggle', 'popover')
+        	    .attr('data-content', function (d) {
+        	        return d.properties.name;
+        	    })
         	    .attr('data-name', function (d) {
         	        return d.properties.name.replace(' County, OR', '');
         	    })
@@ -102,12 +103,20 @@
         	        return d.properties.geoid;
         	    });
         	
+        	$('#chart [data-toggle="popover"]').popover({
+                container: 'body'
+            });
         	$('#chart')
+        	    .on('click', '.county', function () {
+        	        console.log('clicked');
+        	        $(this).popover('show');
+        	    })
         	    .on('mouseover', '.county', function () {
-        	        $(this).css('opacity', '0.5');
+        	        $(this).css('opacity', '0.8');
         	    })
         	    .on('mouseout', '.county', function () {
         	        $(this).css('opacity', '');
+        	        $(this).popover('hide');
         	    });
         });
     });
